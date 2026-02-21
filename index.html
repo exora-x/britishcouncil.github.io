@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>British Council English</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* ─── Header ─── */
+    .header {
+      background: #2e1a47;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .bc-logo {
+      height: 26px;
+      width: auto;
+    }
+
+    .header-logo h1 {
+      color: #fff;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .header .bell-icon {
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* ─── Centre Selector ─── */
+    .centre-bar {
+      background: #fff;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #d0e8e4;
+    }
+
+    .centre-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .centre-info .label {
+      color: #555;
+      font-size: 14px;
+    }
+
+    .centre-info .divider {
+      width: 1px;
+      height: 20px;
+      background: #ccc;
+    }
+
+    .centre-info .location {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2e1a47;
+      cursor: pointer;
+    }
+
+    .centre-info .location i {
+      font-size: 12px;
+      margin-left: 4px;
+    }
+
+    .filter-icon {
+      color: #2e1a47;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* ─── Week Navigation ─── */
+    .week-nav {
+      background: #fff;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .week-nav .arrow {
+      color: #2e1a47;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 4px 8px;
+    }
+
+    .week-nav .week-label {
+      font-size: 15px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    /* ─── Day Selector ─── */
+    .day-selector {
+      background: #fff;
+      padding: 8px 10px 16px;
+      display: flex;
+      justify-content: space-around;
+      border-bottom: 1px solid #d0e8e4;
+    }
+
+    .day-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      position: relative;
+      min-width: 44px;
+    }
+
+    .day-item .day-name {
+      font-size: 12px;
+      color: #999;
+      font-weight: 500;
+    }
+
+    .day-item .day-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+      position: relative;
+    }
+
+    .day-item.active .day-name {
+      color: #2e1a47;
+      font-weight: 600;
+    }
+
+    .day-item.active .day-num {
+      background: #2e1a47;
+      color: #fff;
+    }
+
+    .day-item.has-events .day-name {
+      color: #00857c;
+      font-weight: 600;
+    }
+
+    .day-item.has-events .day-num {
+      color: #00857c;
+      font-weight: 700;
+    }
+
+    .day-item.past .day-name,
+    .day-item.past .day-num {
+      color: #ccc;
+    }
+
+    .day-item.future-dim .day-name,
+    .day-item.future-dim .day-num {
+      color: #bbb;
+    }
+
+    .badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: #00857c;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ─── Event Dots ─── */
+    .event-dots {
+      background: #fff;
+      padding: 4px 0 12px;
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+    }
+
+    .event-dots .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #2e1a47;
+    }
+
+    /* ─── Tabs ─── */
+    .tabs {
+      background: #fff;
+      display: flex;
+      border-bottom: none;
+    }
+
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 14px 0;
+      font-size: 15px;
+      font-weight: 600;
+      color: #555;
+      cursor: pointer;
+      position: relative;
+      border-bottom: 4px solid #00c9b7;
+    }
+
+    .tab.active {
+      color: #2e1a47;
+      border-bottom: 4px solid #2e1a47;
+    }
+
+    /* ─── Time Filter ─── */
+    .time-filter {
+      background: #cceae8;
+      padding: 20px;
+      display: flex;
+      gap: 12px;
+      justify-content: flex-start;
+    }
+
+    .time-btn {
+      padding: 10px 28px;
+      border-radius: 25px;
+      border: 1.5px solid #ccc;
+      font-size: 14px;
+      font-weight: 500;
+      color: #555;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .time-btn.active {
+      background: #2e1a47;
+      color: #fff;
+      border-color: #2e1a47;
+    }
+
+    /* ─── Content Area ─── */
+    .content-area {
+      flex: 1;
+      background: #cceae8;
+      padding: 0 0;
+      overflow-y: auto;
+      padding-bottom: 90px;
+    }
+
+    .section-label {
+      padding: 14px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0;
+      background: #dff0ec;
+    }
+
+    /* ─── Class Card ─── */
+    .class-card {
+      background: #ffffff;
+      margin: 0;
+      border-radius: 0;
+      padding: 20px 20px 20px 24px;
+      border-left: 5px solid #2e1a47;
+      position: relative;
+      margin-bottom: 2px;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .card-tag {
+      padding: 4px 14px;
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1.5px solid #666;
+      color: #444;
+      background: transparent;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #2e1a47;
+      margin-bottom: 14px;
+    }
+
+    .card-detail {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    .card-detail i {
+      color: #666;
+      font-size: 16px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .card-layers {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      color: #2e1a47;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    /* ─── Bottom Nav ─── */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      background: #fff;
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0 20px;
+      border-top: 1px solid #e0e0e0;
+      z-index: 100;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+      padding: 4px 10px;
+      position: relative;
+    }
+
+    .nav-item i {
+      font-size: 20px;
+      color: #777;
+    }
+
+    .nav-item span {
+      font-size: 11px;
+      color: #777;
+      font-weight: 500;
+    }
+
+    .nav-item.active i {
+      color: #2e1a47;
+    }
+
+    .nav-item.active span {
+      color: #2e1a47;
+      font-weight: 600;
+    }
+
+    .nav-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #00c9b7;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="header-logo">
+      <img src="https://sui.britishcouncil.org/2.1.0/img/bc-logo-white.svg" alt="British Council" class="bc-logo" />
+      <h1>English</h1>
+    </div>
+    <i class="fa-regular fa-bell bell-icon"></i>
+  </div>
+
+  <!-- Centre Selector -->
+  <div class="centre-bar">
+    <div class="centre-info">
+      <span class="label">Centre</span>
+      <span class="divider"></span>
+      <span class="location">Kandy <i class="fa-solid fa-caret-down"></i></span>
+    </div>
+    <i class="fa-solid fa-sliders filter-icon"></i>
+  </div>
+
+  <!-- Week Navigation -->
+  <div class="week-nav">
+    <i class="fa-solid fa-chevron-left arrow"></i>
+    <span class="week-label">23 Feb – 01 Mar 2026</span>
+    <i class="fa-solid fa-chevron-right arrow"></i>
+  </div>
+
+  <!-- Day Selector -->
+  <div class="day-selector">
+    <div class="day-item has-events">
+      <span class="day-name">Mo</span>
+      <span class="day-num">23 <span class="badge">3</span></span>
+    </div>
+    <div class="day-item past">
+      <span class="day-name">Tu</span>
+      <span class="day-num">24</span>
+    </div>
+    <div class="day-item has-events">
+      <span class="day-name">We</span>
+      <span class="day-num">25 <span class="badge">7</span></span>
+    </div>
+    <div class="day-item active">
+      <span class="day-name">Th</span>
+      <span class="day-num">26</span>
+    </div>
+    <div class="day-item has-events">
+      <span class="day-name">Fr</span>
+      <span class="day-num">27 <span class="badge">1</span></span>
+    </div>
+    <div class="day-item future-dim">
+      <span class="day-name">Sa</span>
+      <span class="day-num">28</span>
+    </div>
+    <div class="day-item future-dim">
+      <span class="day-name">Su</span>
+      <span class="day-num">01</span>
+    </div>
+  </div>
+
+  <!-- Event Dots -->
+  <div class="event-dots">
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab active">Time</div>
+    <div class="tab">Teacher</div>
+    <div class="tab">Content</div>
+  </div>
+
+  <!-- Time Filter -->
+  <div class="time-filter">
+    <button class="time-btn active">All times</button>
+    <button class="time-btn">AM</button>
+    <button class="time-btn">PM</button>
+  </div>
+
+  <!-- Content Area -->
+  <div class="content-area">
+    <div class="section-label">Available</div>
+    <div id="class-list"></div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="bottom-nav">
+    <div class="nav-item">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </div>
+    <div class="nav-item active">
+      <i class="fa-regular fa-calendar"></i>
+      <span>Booking</span>
+    </div>
+    <div class="nav-item">
+      <i class="fa-solid fa-chart-simple"></i>
+      <span>Progress</span>
+    </div>
+    <div class="nav-item">
+      <i class="fa-regular fa-comment"></i>
+      <span>Grammar</span>
+    </div>
+    <div class="nav-item">
+      <i class="fa-regular fa-square-check"></i>
+      <span>Feedback</span>
+    </div>
+    <div class="nav-item">
+      <i class="fa-regular fa-user"></i>
+      <span>Account</span>
+    </div>
+  </div>
+
+  <script>
+    // Class data for each day
+    const classData = {
+      '23': [
+        { tags: ['Academic', 'Speaking'], title: 'Conversation practice', time: 'Monday 23 Feb 2026, 09.00 – 10.30', location: 'Kandy', teacher: 'Peresha Dassanayake' },
+        { tags: ['Academic', 'Writing'], title: 'Essay writing', time: 'Monday 23 Feb 2026, 11.00 – 12.30', location: 'Kandy', teacher: 'Peresha Dassanayake' },
+        { tags: ['Academic', 'Reading'], title: 'Reading comprehension', time: 'Monday 23 Feb 2026, 14.00 – 15.30', location: 'Kandy', teacher: 'Peresha Dassanayake' }
+      ],
+      '24': [],
+      '25': [
+        { tags: ['Academic', 'Speaking'], title: 'Discussion skills', time: 'Wednesday 25 Feb 2026, 08.00 – 09.30', location: 'Kandy', teacher: 'Peresha Dassanayake' },
+        { tags: ['Academic', 'Listening'], title: 'Listening practice', time: 'Wednesday 25 Feb 2026, 09.30 – 11.00', location: 'Kandy', teacher: 'Peresha Dassanayake' },
+        { tags: ['Academic', 'Writing'], title: 'Report writing', time: 'Wednesday 25 Feb 2026, 11.00 – 12.30', location: 'Kandy', teacher: 'Peresha Dassanayake' },
+        { tags: ['Academic', 'Reading'], title: 'Academic reading', time: 'Wednesday 25 Feb 2026, 12.30 – 14.00', location: 'Kandy', teacher: 'Peresha Dassanayake' },
+        { tags: ['Academic', 'Grammar'], title: 'Grammar review', time: 'Wednesday 25 Feb 2026, 14.00 – 15.30', location: 'Kandy', teacher: 'Peresha Dassanayake' },
+        { tags: ['Academic', 'Speaking'], title: 'Presentation skills', time: 'Wednesday 25 Feb 2026, 15.30 – 17.00', location: 'Kandy', teacher: 'Peresha Dassanayake' },
+        { tags: ['Academic', 'Vocabulary'], title: 'Vocabulary building', time: 'Wednesday 25 Feb 2026, 17.00 – 18.30', location: 'Kandy', teacher: 'Peresha Dassanayake' }
+      ],
+      '26': [
+        { tags: ['Academic', 'Speaking'], title: 'Academic subjects', time: 'Thursday 26 Feb 2026, 12.30 – 14.00', location: 'Kandy', teacher: 'Peresha Dassanayake' }
+      ],
+      '27': [
+        { tags: ['Academic', 'Listening'], title: 'Listening skills', time: 'Friday 27 Feb 2026, 10.00 – 11.30', location: 'Kandy', teacher: 'Peresha Dassanayake' }
+      ],
+      '28': [],
+      '01': []
+    };
+
+    function renderClasses(day) {
+      const list = document.getElementById('class-list');
+      const classes = classData[day] || [];
+
+      if (classes.length === 0) {
+        list.innerHTML = '<p style="padding: 20px; color: #666; text-align: center;">No classes available for this day.</p>';
+        return;
+      }
+
+      list.innerHTML = classes.map((cls, i) => `
+        <div class="class-card" style="${i > 0 ? 'margin-top: 12px;' : ''}">
+          <div class="card-tags">
+            ${cls.tags.map(t => `<span class="card-tag">${t}</span>`).join('')}
+          </div>
+          <div class="card-title">${cls.title}</div>
+          <div class="card-detail">
+            <i class="fa-regular fa-clock"></i>
+            <span>${cls.time}</span>
+          </div>
+          <div class="card-detail">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>${cls.location}</span>
+          </div>
+          <div class="card-detail">
+            <i class="fa-regular fa-user"></i>
+            <span>${cls.teacher}</span>
+          </div>
+          <i class="fa-solid fa-layer-group card-layers"></i>
+        </div>
+      `).join('');
+    }
+
+    // Tab switching
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+
+    // Time filter switching
+    document.querySelectorAll('.time-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // Day selector switching + render classes
+    document.querySelectorAll('.day-item').forEach(day => {
+      day.addEventListener('click', () => {
+        document.querySelectorAll('.day-item').forEach(d => d.classList.remove('active'));
+        day.classList.add('active');
+        const dayNum = day.querySelector('.day-num').textContent.trim().split(' ')[0];
+        renderClasses(dayNum);
+      });
+    });
+
+    // Render default (Thursday 26)
+    renderClasses('26');
+  </script>
+</body>
+</html>
